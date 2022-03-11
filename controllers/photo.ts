@@ -4,8 +4,7 @@ import {
   DeletealbumBody,
   GetphotosBody,
   ChangealbumtitleBody,
-  TokenData,
-  PhotoInterface
+  TokenData
 } from '../interface/photo';
 import jwt from 'jsonwebtoken';
 import axios from 'axios';
@@ -23,11 +22,12 @@ export class PhotoActions {
             let user = await query.userFind(login);
             console.log(user)
 
-            let test = resp.data.filter( (item: Record<string, any>) => ((item.id - 1) % 50 == 0 || (item.id - 2) % 50 == 0) && item.albumId < 3 )
-            console.log(test) // потом удалить и везде заменить test на resp.data
+            let data = resp.data;
+            // let data = resp.data.filter( (item: Record<string, any>) => ((item.id - 1) % 50 == 0 || (item.id - 2) % 50 == 0) && item.albumId < 3 )
+            // console.log(data) // ^^^ test
 
             let albumsArr = [];
-            let albumsList = new Set(test.map((item: Record<string, any>) => item.albumId));
+            let albumsList = new Set(data.map((item: Record<string, any>) => item.albumId));
             albumsList.forEach((value: number) => {
               albumsArr.push({
                 _id: value,
@@ -38,7 +38,7 @@ export class PhotoActions {
 
             query.albumAdd(albumsArr)
               .then((docs) => {
-                let photosArr = test.map((item: Record<string, any>) => {
+                let photosArr = data.map((item: Record<string, any>) => {
                   docs.forEach((item2: Record<string, any>) => {
                     if ( item.albumId == item2._id ) {
                       item._id = item.id;

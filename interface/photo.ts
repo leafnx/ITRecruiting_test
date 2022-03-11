@@ -19,21 +19,10 @@ interface TokenData {
   iat: number;
 }
 
-interface PhotoInterface {
-  _id: number | void;
-  albumId: number;
-  id: number;
-  title: string;
-  url: string;
-  thumbnailUrl: string;
-  owner: string | void;
-}
-
 export {
   DeletealbumBody,
   DeletephotoBody,
   GetphotosBody,
   ChangealbumtitleBody,
-  TokenData,
-  PhotoInterface
+  TokenData
 }
