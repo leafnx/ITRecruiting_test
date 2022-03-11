@@ -10,6 +10,5 @@ interface LoginBody {
 
 export {
   RegisterBody,
-  LoginBody,
-  UserInterface
+  LoginBody
 }
